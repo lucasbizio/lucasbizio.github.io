@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Casa & Lar</title>
+    <style>
+        /* Cores baseadas na imagem fornecida */
+        :root {
+            --primary-color: #2c5530; /* Verde escuro */
+            --secondary-color: #d4af37; /* Dourado */
+            --accent-color: #8b4513; /* Marrom */
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+            --text-color: #444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 85, 48, 0.8), rgba(44, 85, 48, 0.8)), url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&h=600&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+            margin-bottom: 50px;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Blog Layout */
+        .blog-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        /* Artigos Principais */
+        .featured-article {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        
+        .featured-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        
+        .featured-content {
+            padding: 30px;
+        }
+        
+        .featured-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .article-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .featured-content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .read-more {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .read-more:hover {
+            background-color: var(--accent-color);
+        }
+        
+        /* Artigos Secundários */
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .article-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .article-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .article-content {
+            padding: 20px;
+        }
+        
+        .article-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .article-content p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .article-tag {
+            display: inline-block;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+        
+        .sidebar-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-color);
+        }
+        
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            margin-bottom: 10px;
+        }
+        
+        .categories-list a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .categories-list a:hover {
+            color: var(--primary-color);
+        }
+        
+        .categories-list span {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .recent-posts {
+            list-style: none;
+        }
+        
+        .recent-post {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .recent-post:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .recent-post-img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .recent-post-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+        
+        .recent-post-content p {
+            font-size: 0.8rem;
+            color: #777;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .newsletter-form input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .newsletter-form button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: var(--accent-color);
+        }
+        
+        /* Paginação */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+        }
+        
+        .pagination a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .pagination a:hover, .pagination a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ddd;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: -1;
+                margin-bottom: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .article-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Casa<span>&Lar</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="servicos.html">Serviços</a></li>
+                        <li><a href="galeria.html">Galeria</a></li>
+                        <li><a href="blog.html" style="color: var(--primary-color);">Blog</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Blog & Notícias</h1>
+            <p>Fique por dentro das últimas tendências em decoração, dicas de organização e novidades do mundo do design de interiores</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="blog-container">
+            <main>
+                <!-- Artigo em destaque -->
+                <article class="featured-article">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=400&q=80" alt="Tendências de decoração 2024" class="featured-img">
+                    <div class="featured-content">
+                        <h2>Tendências de Decoração para 2024: O que esperar</h2>
+                        <div class="article-meta">
+                            <span>📅 15 de Março, 2024</span>
+                            <span>👤 Por Ana Silva</span>
+                            <span>🏷️ Tendências</span>
+                        </div>
+                        <p>O ano de 2024 promete trazer novidades interessantes para o mundo da decoração e design de interiores. Com foco em sustentabilidade, conforto e personalização, as tendências refletem um desejo por espaços mais autênticos e acolhedores. Neste artigo, exploramos as principais tendências que vão dominar os projetos residenciais este ano.</p>
+                        <a href="#" class="read-more">Continuar Lendo</a>
+                    </div>
+                </article>
+
+                <!-- Grid de artigos -->
+                <div class="article-grid">
+                    <!-- Artigo 1 -->
+                    <article class="article-card">
+                        <img src="https://images.unsplash.com/photo-1556912167-f556f1f39fdf?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="Cozinhas funcionais" class="article-img">
+                        <div class="article-content">
+                            <h3>Como Planejar uma Cozinha Funcional e Prática</h3>
+                            <p>Dicas essenciais para criar uma cozinha que combine beleza e funcionalidade, otimizando espaço e facilitando o dia a dia.</p>
+                            <span class="article-tag">Cozinhas</span>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo 2 -->
+                    <article class="article-card">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="Iluminação residencial" class="article-img">
+                        <div class="article-content">
+                            <h3>O Poder da Iluminação no Design de Interiores</h3>
+                            <p>Descubra como a iluminação adequada pode transformar completamente um ambiente, criando atmosferas únicas.</p>
+                            <span class="article-tag">Iluminação</span>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo 3 -->
+                    <article class="article-card">
+                        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="Banheiros spa" class="article-img">
+                        <div class="article-content">
+                            <h3>Transforme seu Banheiro em um Spa em Casa</h3>
+                            <p>Ideias para criar um ambiente relaxante no banheiro, usando elementos que remetem aos spas de luxo.</p>
+                            <span class="article-tag">Banheiros</span>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo 4 -->
+                    <article class="article-card">
+                        <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="Plantas em casa" class="article-img">
+                        <div class="article-content">
+                            <h3>Benefícios das Plantas na Decoração e Bem-Estar</h3>
+                            <p>Além de embelezar, as plantas trazem benefícios para a saúde e qualidade de vida. Saiba como incorporá-las.</p>
+                            <span class="article-tag">Decoração</span>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo 5 -->
+                    <article class="article-card">
+                        <img src="https://images.unsplash.com/photo-1484101403633-562f891dc89a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="Móveis sustentáveis" class="article-img">
+                        <div class="article-content">
+                            <h3>Móveis Sustentáveis: Beleza que Preserva o Meio Ambiente</h3>
+                            <p>Conheça as opções de móveis ecologicamente corretos que combinam design e responsabilidade ambiental.</p>
+                            <span class="article-tag">Sustentabilidade</span>
+                        </div>
+                    </article>
+                    
+                    <!-- Artigo 6 -->
+                    <article class="article-card">
+                        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="Organização de espaços" class="article-img">
+                        <div class="article-content">
+                            <h3>10 Dicas para Organizar Pequenos Espaços</h3>
+                            <p>Soluções inteligentes para maximizar ambientes compactos sem abrir mão do estilo e conforto.</p>
+                            <span class="article-tag">Organização</span>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Paginação -->
+                <div class="pagination">
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">→</a>
+                </div>
+            </main>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Categorias</h3>
+                    <ul class="categories-list">
+                        <li><a href="#">Cozinhas <span>12</span></a></li>
+                        <li><a href="#">Salas <span>8</span></a></li>
+                        <li><a href="#">Quartos <span>6</span></a></li>
+                        <li><a href="#">Banheiros <span>5</span></a></li>
+                        <li><a href="#">Áreas Externas <span>7</span></a></li>
+                        <li><a href="#">Tendências <span>10</span></a></li>
+                        <li><a href="#">Dicas Práticas <span>15</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Posts Recentes</h3>
+                    <ul class="recent-posts">
+                        <li class="recent-post">
+                            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=75&q=80" alt="Quarto infantil" class="recent-post-img">
+                            <div class="recent-post-content">
+                                <h4>Como Criar um Quarto Infantil Seguro e Divertido</h4>
+                                <p>10 de Março, 2024</p>
+                            </div>
+                        </li>
+                        <li class="recent-post">
+                            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=75&q=80" alt="Quarto principal" class="recent-post-img">
+                            <div class="recent-post-content">
+                                <h4>5 Elementos para um Quarto Principal Confortável</h4>
+                                <p>5 de Março, 2024</p>
+                            </div>
+                        </li>
+                        <li class="recent-post">
+                            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=75&q=80" alt="Sala de estar" class="recent-post-img">
+                            <div class="recent-post-content">
+                                <h4>Ideias para Reformar sua Sala de Estar com Orçamento Limitado</h4>
+                                <p>28 de Fevereiro, 2024</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Newsletter</h3>
+                    <p>Inscreva-se para receber nossas novidades e dicas exclusivas!</p>
+                    <form class="newsletter-form">
+                        <input type="text" placeholder="Seu nome" required>
+                        <input type="email" placeholder="Seu e-mail" required>
+                        <button type="submit">Inscrever-se</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Casa & Lar</h3>
+                    <p>Transformamos casas em lares aconchegantes e funcionais há mais de 15 anos no mercado.</p>
+                    <div class="social-links">
+                        <a href="#">FB</a>
+                        <a href="#">IG</a>
+                        <a href="#">PT</a>
+                        <a href="#">YT</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <a href="index.html">Home</a>
+                    <a href="sobre.html">Sobre Nós</a>
+                    <a href="servicos.html">Serviços</a>
+                    <a href="galeria.html">Galeria</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="contato.html">Contato</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Serviços</h3>
+                    <a href="#">Design de Interiores</a>
+                    <a href="#">Reformas Residenciais</a>
+                    <a href="#">Projetos Comerciais</a>
+                    <a href="#">Consultoria</a>
+                    <a href="#">Decoração</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>📞 (11) 3456-7890</p>
+                    <p>📧 contato@casaelar.com</p>
+                    <p>📍 Av. dos Imóveis, 456 - Jardins, São Paulo - SP</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Casa & Lar. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

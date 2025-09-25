@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços - Casa & Lar</title>
+    <style>
+        /* ESTILOS IDÊNTICOS À GALERIA */
+        :root {
+            --primary-color: #2c5530;
+            --secondary-color: #d4af37;
+            --accent-color: #8b4513;
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+            --text-color: #444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header - IDÊNTICO */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 85, 48, 0.8), rgba(44, 85, 48, 0.8)), url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&h=600&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+            margin-bottom: 50px;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Serviços */
+        .servicos-destaque {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .servicos-destaque h2 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .servicos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .servico-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .servico-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .servico-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .servico-content {
+            padding: 25px;
+        }
+        
+        .servico-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .servico-preco {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .btn-servico {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-servico:hover {
+            background-color: #1e3a21;
+        }
+        
+        /* Processo */
+        .processo {
+            background-color: var(--light-color);
+            padding: 60px 0;
+            margin: 60px 0;
+        }
+        
+        .processo h2 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+        
+        .processo-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .step {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .step-number {
+            background-color: var(--secondary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        /* Footer - IDÊNTICO */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ddd;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .servicos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Casa<span>&Lar</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="servicos.html" style="color: var(--primary-color);">Serviços</a></li>
+                        <li><a href="galeria.html">Galeria</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Nossos Serviços</h1>
+            <p>Soluções completas para transformar seu espaço com qualidade e criatividade</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="servicos-destaque">
+            <h2>Serviços em Destaque</h2>
+        </div>
+
+        <div class="servicos-grid">
+            <!-- Design de Interiores -->
+            <div class="servico-card">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Design de Interiores" class="servico-img">
+                <div class="servico-content">
+                    <h3>Design de Interiores Completo</h3>
+                    <p>Projeto personalizado desde o conceito até a execução, incluindo escolha de móveis, cores, iluminação e acabamentos.</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li>Planta baixa e 3D</li>
+                        <li>Especificação de materiais</li>
+                        <li>Acompanhamento da obra</li>
+                        <li>Consultoria de decoração</li>
+                    </ul>
+                    <div class="servico-preco">A partir de R$ 3.500</div>
+                    <a href="contato.html" class="btn-servico">Solicitar Orçamento</a>
+                </div>
+            </div>
+            
+            <!-- Reformas Residenciais -->
+            <div class="servico-card">
+                <img src="https://images.unsplash.com/photo-1556912167-f556f1f39fdf?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Reformas" class="servico-img">
+                <div class="servico-content">
+                    <h3>Reformas Residenciais</h3>
+                    <p>Transformações completas ou parciais com qualidade garantida e prazo definido.</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li>Reformas de cozinhas e banheiros</li>
+                        <li>Ampliações e integrações</li>
+                        <li>Troca de pisos e revestimentos</li>
+                        <li>Instalações elétricas e hidráulicas</li>
+                    </ul>
+                    <div class="servico-preco">A partir de R$ 8.000</div>
+                    <a href="contato.html" class="btn-servico">Solicitar Orçamento</a>
+                </div>
+            </div>
+            
+            <!-- Projetos Comerciais -->
+            <div class="servico-card">
+                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Projetos Comerciais" class="servico-img">
+                <div class="servico-content">
+                    <h3>Projetos Comerciais</h3>
+                    <p>Ambientes corporativos funcionais e inspiradores para aumentar a produtividade e bem-estar.</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li>Escritórios e salas de reunião</li>
+                        <li>Lojas e showrooms</li>
+                        <li>Restaurantes e cafés</li>
+                        <li>Espaços corporativos</li>
+                    </ul>
+                    <div class="servico-preco">A partir de R$ 12.000</div>
+                    <a href="contato.html" class="btn-servico">Solicitar Orçamento</a>
+                </div>
+            </div>
+            
+            <!-- Consultoria -->
+            <div class="servico-card">
+                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Consultoria" class="servico-img">
+                <div class="servico-content">
+                    <h3>Consultoria Express</h3>
+                    <p>Orientação profissional para pequenas mudanças e dúvidas sobre decoração e organização.</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li>Análise do espaço atual</li>
+                        <li>Sugestões de melhorias</li>
+                        <li>Paleta de cores e iluminação</li>
+                        <li>Dicas de organização</li>
+                    </ul>
+                    <div class="servico-preco">R$ 450 (2 horas)</div>
+                    <a href="contato.html" class="btn-servico">Agendar Consultoria</a>
+                </div>
+            </div>
+            
+            <!-- Decoração -->
+            <div class="servico-card">
+                <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Decoração" class="servico-img">
+                <div class="servico-content">
+                    <h3>Decoração Residencial</h3>
+                    <p>Seleção e aquisição de móveis, objetos decorativos e acessórios para complementar seu espaço.</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li>Seleção de móveis e acessórios</li>
+                        <li>Arte e objetos decorativos</li>
+                        <li>Cortinas e persianas</li>
+                        <li>Iluminação decorativa</li>
+                    </ul>
+                    <div class="servico-preco">A partir de R$ 2.000</div>
+                    <a href="contato.html" class="btn-servico">Solicitar Orçamento</a>
+                </div>
+            </div>
+            
+            <!-- Projeto de Áreas Externas -->
+            <div class="servico-card">
+                <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Áreas Externas" class="servico-img">
+                <div class="servico-content">
+                    <h3>Áreas Externas e Jardins</h3>
+                    <p>Criação de espaços externos funcionais e aconchegantes para lazer e entretenimento.</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li>Jardins verticais e horizontais</li>
+                        <li>Decks e pergolados</li>
+                        <li>Mobiliário externo</li>
+                        <li>Iluminação paisagística</li>
+                    </ul>
+                    <div class="servico-preco">A partir de R$ 5.000</div>
+                    <a href="contato.html" class="btn-servico">Solicitar Orçamento</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="processo">
+        <div class="container">
+            <h2>Como Funciona Nosso Processo</h2>
+            <div class="processo-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Consulta Inicial</h3>
+                    <p>Conversamos para entender suas necessidades, estilo e orçamento</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Projeto Conceitual</h3>
+                    <p>Desenvolvemos o conceito e apresentamos as primeiras ideias</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Desenvolvimento</h3>
+                    <p>Detalhamos o projeto com plantas, 3D e especificações</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Execução</h3>
+                    <p>Coordenamos a obra e garantimos a qualidade do resultado</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Casa & Lar</h3>
+                    <p>Transformamos casas em lares aconchegantes e funcionais há mais de 15 anos no mercado.</p>
+                    <div class="social-links">
+                        <a href="#">FB</a>
+                        <a href="#">IG</a>
+                        <a href="#">PT</a>
+                        <a href="#">YT</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <a href="index.html">Home</a>
+                    <a href="sobre.html">Sobre Nós</a>
+                    <a href="servicos.html">Serviços</a>
+                    <a href="galeria.html">Galeria</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="contato.html">Contato</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Serviços</h3>
+                    <a href="#">Design de Interiores</a>
+                    <a href="#">Reformas Residenciais</a>
+                    <a href="#">Projetos Comerciais</a>
+                    <a href="#">Consultoria</a>
+                    <a href="#">Decoração</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>📞 (11) 3456-7890</p>
+                    <p>📧 aluno@unaerp.com.br</p>
+                    <p>📍 Centro - Ribeirão Preto, SP</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Casa & Lar. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

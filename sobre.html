@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós - Casa & Lar</title>
+    <style>
+        /* ESTILOS IDÊNTICOS À GALERIA */
+        :root {
+            --primary-color: #2c5530;
+            --secondary-color: #d4af37;
+            --accent-color: #8b4513;
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+            --text-color: #444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header - IDÊNTICO */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 85, 48, 0.8), rgba(44, 85, 48, 0.8)), url('https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&h=600&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+            margin-bottom: 50px;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        /* Conteúdo Sobre */
+        .sobre-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+            align-items: center;
+        }
+        
+        .sobre-text h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+        
+        .sobre-img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .valores {
+            background-color: var(--light-color);
+            padding: 60px 0;
+            margin: 60px 0;
+        }
+        
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .valor-card {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .valor-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .equipe {
+            margin-bottom: 60px;
+        }
+        
+        .equipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .membro-card {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .membro-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        
+        /* Footer - IDÊNTICO */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ddd;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .sobre-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Casa<span>&Lar</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="sobre.html" style="color: var(--primary-color);">Sobre Nós</a></li>
+                        <li><a href="servicos.html">Serviços</a></li>
+                        <li><a href="galeria.html">Galeria</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Nossa História</h1>
+            <p>Conheça a trajetória da Casa & Lar e nossa paixão por transformar espaços</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="sobre-content">
+            <div class="sobre-text">
+                <h2>Há mais de 15 anos criando lares especiais</h2>
+                <p>A Casa & Lar nasceu da paixão por transformar espaços em ambientes que realmente representem as pessoas que neles habitam. Começamos como uma pequena equipe de arquitetos visionários e hoje somos referência em design de interiores e reformas.</p>
+                <p>Nossa missão vai além de simplesmente decorar ambientes. Buscamos entender o estilo de vida, necessidades e sonhos de cada cliente para criar soluções que unam funcionalidade, conforto e estética.</p>
+                <p>Acreditamos que cada projeto é único e merece atenção especial. Por isso, trabalhamos com transparência, qualidade e comprometimento em cada etapa do processo.</p>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Nossa equipe" class="sobre-img">
+            </div>
+        </div>
+    </section>
+
+    <section class="valores">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 50px; font-size: 2.2rem;">Nossos Valores</h2>
+            <div class="valores-grid">
+                <div class="valor-card">
+                    <div class="valor-icon">✓</div>
+                    <h3>Qualidade</h3>
+                    <p>Utilizamos os melhores materiais e técnicas para garantir excelência em cada projeto</p>
+                </div>
+                <div class="valor-card">
+                    <div class="valor-icon">💚</div>
+                    <h3>Transparência</h3>
+                    <p>Comunicação clara e honesta em todas as etapas do processo</p>
+                </div>
+                <div class="valor-card">
+                    <div class="valor-icon">⚡</div>
+                    <h3>Inovação</h3>
+                    <p>Sempre buscando novas tendências e soluções criativas</p>
+                </div>
+                <div class="valor-card">
+                    <div class="valor-icon">🤝</div>
+                    <h3>Compromisso</h3>
+                    <p>Total dedicação à satisfação e needs dos nossos clientes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="equipe container">
+        <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 50px; font-size: 2.2rem;">Nossa Equipe</h2>
+        <div class="equipe-grid">
+            <div class="membro-card">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&h=300&q=80" alt="Carlos Silva" class="membro-img">
+                <h3>Carlos Silva</h3>
+                <p>Designer de Interiores</p>
+                <p>15 anos de experiência em design residencial</p>
+            </div>
+            <div class="membro-card">
+                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&h=300&q=80">
+                <h3>Ana Costa</h3>
+                <p>Arquiteta Chefe</p>
+                <p>Especialista em ambientes comerciais</p>
+            </div>
+            <div class="membro-card">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&h=300&q=80" alt="Roberto Lima" class="membro-img">
+                <h3>Roberto Lima</h3>
+                <p>Engenheiro Civil</p>
+                <p>Coordenação de obras e reformas</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Casa & Lar</h3>
+                    <p>Transformamos casas em lares aconchegantes e funcionais há mais de 15 anos no mercado.</p>
+                    <div class="social-links">
+                        <a href="#">FB</a>
+                        <a href="#">IG</a>
+                        <a href="#">PT</a>
+                        <a href="#">YT</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <a href="index.html">Home</a>
+                    <a href="sobre.html">Sobre Nós</a>
+                    <a href="servicos.html">Serviços</a>
+                    <a href="galeria.html">Galeria</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="contato.html">Contato</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Serviços</h3>
+                    <a href="#">Design de Interiores</a>
+                    <a href="#">Reformas Residenciais</a>
+                    <a href="#">Projetos Comerciais</a>
+                    <a href="#">Consultoria</a>
+                    <a href="#">Decoração</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>📞 (11) 3456-7890</p>
+                    <p>📧 aluno@unaerp.com.br</p>
+                    <p>📍 Centro - Ribeirão Preto, SP</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Casa & Lar. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

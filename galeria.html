@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria - Casa & Lar</title>
+    <style>
+        /* Cores baseadas na imagem fornecida */
+        :root {
+            --primary-color: #2c5530; /* Verde escuro */
+            --secondary-color: #d4af37; /* Dourado */
+            --accent-color: #8b4513; /* Marrom */
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+            --text-color: #444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 85, 48, 0.8), rgba(44, 85, 48, 0.8)), url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&h=600&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+            margin-bottom: 50px;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Filtros */
+        .filters {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        /* Galeria */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        
+        .gallery-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        
+        .gallery-content {
+            padding: 20px;
+        }
+        
+        .gallery-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .gallery-content p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .gallery-tag {
+            display: inline-block;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ddd;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Casa<span>&Lar</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="servicos.html">Serviços</a></li>
+                        <li><a href="galeria.html" style="color: var(--primary-color);">Galeria</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Nossa Galeria de Projetos</h1>
+            <p>Inspire-se com nossas soluções criativas para transformar sua casa em um lar aconchegante e funcional</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="filters">
+            <h2>Projetos em Destaque</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="cozinhas">Cozinhas</button>
+                <button class="filter-btn" data-filter="salas">Salas</button>
+                <button class="filter-btn" data-filter="quartos">Quartos</button>
+                <button class="filter-btn" data-filter="banheiros">Banheiros</button>
+                <button class="filter-btn" data-filter="externas">Áreas Externas</button>
+            </div>
+        </div>
+
+        <div class="gallery">
+            <!-- Cozinha 1 -->
+            <div class="gallery-item" data-category="cozinhas">
+                <img src="https://images.unsplash.com/photo-1556912167-f556f1f39fdf?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Cozinha moderna" class="gallery-img">
+                <div class="gallery-content">
+                    <h3>Cozinha Contemporânea</h3>
+                    <p>Design moderno com ilha central e acabamentos em mármore. Projeto focado em funcionalidade e elegância.</p>
+                    <span class="gallery-tag">Cozinhas</span>
+                </div>
+            </div>
+            
+            <!-- Sala 1 -->
+            <div class="gallery-item" data-category="salas">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Sala de estar" class="gallery-img">
+                <div class="gallery-content">
+                    <h3>Sala de Estar Aconchegante</h3>
+                    <p>Ambiente integrado com sofá modular, iluminação aconchegante e painel de TV personalizado.</p>
+                    <span class="gallery-tag">Salas</span>
+                </div>
+            </div>
+            
+            <!-- Quarto 1 -->
+            <div class="gallery-item" data-category="quartos">
+                <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Quarto principal" class="gallery-img">
+                <div class="gallery-content">
+                    <h3>Quarto Principal Luxuoso</h3>
+                    <p>Suíte espaçosa com closet organizado, banheiro integrado e varanda privativa.</p>
+                    <span class="gallery-tag">Quartos</span>
+                </div>
+            </div>
+            
+            <!-- Banheiro 1 -->
+            <div class="gallery-item" data-category="banheiros">
+                <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Banheiro moderno" class="gallery-img">
+                <div class="gallery-content">
+                    <h3>Banheiro com Spa</h3>
+                    <p>Banheiro com banheira de hidromassagem, acabamentos em porcelanato e iluminação indireta.</p>
+                    <span class="gallery-tag">Banheiros</span>
+                </div>
+            </div>
+            
+            <!-- Área Externa 1 -->
+            <div class="gallery-item" data-category="externas">
+                <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Área externa" class="gallery-img">
+                <div class="gallery-content">
+                    <h3>Jardim Vertical</h3>
+                    <p>Área externa com jardim vertical, deck de madeira e mobiliário resistente às intempéries.</p>
+                    <span class="gallery-tag">Áreas Externas</span>
+                </div>
+            </div>
+            
+            <!-- Cozinha 2 -->
+            <div class="gallery-item" data-category="cozinhas">
+                <img src="https://images.unsplash.com/photo-1484101403633-562f891dc89a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Cozinha rústica" class="gallery-img">
+                <div class="gallery-content">
+                    <h3>Cozinha Rústica</h3>
+                    <p>Estilo rústico com móveis de madeira maciça, bancada em granito e iluminação vintage.</p>
+                    <span class="gallery-tag">Cozinhas</span>
+                </div>
+            </div>
+            
+            <!-- Sala 2 -->
+            <div class="gallery-item" data-category="salas">
+                <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Sala de TV" class="gallery-img">
+                <div class="gallery-content">
+                    <h3>Sala de TV Integrada</h3>
+                    <p>Sala com home theater integrado, painel acústico e poltronas reclináveis para máximo conforto.</p>
+                    <span class="gallery-tag">Salas</span>
+                </div>
+            </div>
+            
+            <!-- Quarto 2 -->
+            <div class="gallery-item" data-category="quartos">
+                <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80" alt="Quarto infantil" class="gallery-img">
+                <div class="gallery-content">
+                    <h3>Quarto Infantil Temático</h3>
+                    <p>Quarto infantil com tema de floresta, beliche personalizado e área de estudos integrada.</p>
+                    <span class="gallery-tag">Quartos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Casa & Lar</h3>
+                    <p>Transformamos casas em lares aconchegantes e funcionais há mais de 15 anos no mercado.</p>
+                    <div class="social-links">
+                        <a href="#">FB</a>
+                        <a href="#">IG</a>
+                        <a href="#">PT</a>
+                        <a href="#">YT</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <a href="index.html">Home</a>
+                    <a href="sobre.html">Sobre Nós</a>
+                    <a href="servicos.html">Serviços</a>
+                    <a href="galeria.html">Galeria</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="contato.html">Contato</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Serviços</h3>
+                    <a href="#">Design de Interiores</a>
+                    <a href="#">Reformas Residenciais</a>
+                    <a href="#">Projetos Comerciais</a>
+                    <a href="#">Consultoria</a>
+                    <a href="#">Decoração</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>📞 (11) 3456-7890</p>
+                    <p>📧 aluno@unaerp.com.br</p>
+                    <p>📍 Centro - Ribeirão Preto, SP</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Casa & Lar. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Filtro da galeria
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove a classe active de todos os botões
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Adiciona a classe active ao botão clicado
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    galleryItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
